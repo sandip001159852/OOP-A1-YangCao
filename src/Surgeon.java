@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * years of experience.
  *
  * GitHub repository: https://github.com/sandip001159852/OOP-A1-YangCao
- * (replace with your actual repository URL before submission)
+ * https://github.com/sandip001159852/OOP-A1-YangCao.git
  */
 public class Surgeon extends HealthProfessional {
 
@@ -27,10 +27,18 @@ public class Surgeon extends HealthProfessional {
      * @param workingDays       the fixed working days
      * @param surgicalField     the surgical specialisation field
      * @param yearsOfExperience the years of experience
+     * @throws IllegalArgumentException if surgicalField is blank or
+     *         yearsOfExperience is negative
      */
     public Surgeon(String id, String name, ArrayList<String> workingDays,
             String surgicalField, int yearsOfExperience) {
         super(id, name, workingDays);   // initialise the inherited fields
+        if (surgicalField == null || surgicalField.trim().isEmpty()) {
+            throw new IllegalArgumentException("Surgical field is required.");
+        }
+        if (yearsOfExperience < 0) {
+            throw new IllegalArgumentException("Years of experience must not be negative.");
+        }
         this.surgicalField = surgicalField;
         this.yearsOfExperience = yearsOfExperience;
     }
@@ -61,9 +69,7 @@ public class Surgeon extends HealthProfessional {
      */
     @Override
     public String toString() {
-        return "Surgeon [ID: " + getId()
-                + ", Name: " + getName()
-                + ", Working Days: " + getWorkingDays()
+        return "Surgeon [" + getBaseDetails()
                 + ", Surgical Field: " + surgicalField
                 + ", Years of Experience: " + yearsOfExperience + "]";
     }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * the GP can see per day.
  *
  * GitHub repository: https://github.com/sandip001159852/OOP-A1-YangCao
- * (replace with your actual repository URL before submission)
+ * https://github.com/sandip001159852/OOP-A1-YangCao.git
  */
 public class GeneralPractitioner extends HealthProfessional {
 
@@ -23,10 +23,14 @@ public class GeneralPractitioner extends HealthProfessional {
      * @param name              the full name
      * @param workingDays       the fixed working days
      * @param maxPatientsPerDay the maximum patients per day
+     * @throws IllegalArgumentException if maxPatientsPerDay is not positive
      */
     public GeneralPractitioner(String id, String name, ArrayList<String> workingDays,
             int maxPatientsPerDay) {
         super(id, name, workingDays);   // initialise the inherited fields
+        if (maxPatientsPerDay <= 0) {
+            throw new IllegalArgumentException("Max patients per day must be positive.");
+        }
         this.maxPatientsPerDay = maxPatientsPerDay;
     }
 
@@ -49,9 +53,7 @@ public class GeneralPractitioner extends HealthProfessional {
      */
     @Override
     public String toString() {
-        return "General Practitioner [ID: " + getId()
-                + ", Name: " + getName()
-                + ", Working Days: " + getWorkingDays()
+        return "General Practitioner [" + getBaseDetails()
                 + ", Max Patients Per Day: " + maxPatientsPerDay + "]";
     }
 }

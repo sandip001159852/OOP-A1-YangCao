@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * attribute: the specialisation field.
  *
  * GitHub repository: https://github.com/sandip001159852/OOP-A1-YangCao
- * (replace with your actual repository URL before submission)
+ * https://github.com/sandip001159852/OOP-A1-YangCao.git
  */
 public class Specialist extends HealthProfessional {
 
@@ -23,10 +23,14 @@ public class Specialist extends HealthProfessional {
      * @param name            the full name
      * @param workingDays     the fixed working days
      * @param specialisation  the medical specialisation field
+     * @throws IllegalArgumentException if specialisation is blank
      */
     public Specialist(String id, String name, ArrayList<String> workingDays,
             String specialisation) {
         super(id, name, workingDays);   // initialise the inherited fields
+        if (specialisation == null || specialisation.trim().isEmpty()) {
+            throw new IllegalArgumentException("Specialisation is required.");
+        }
         this.specialisation = specialisation;
     }
 
@@ -47,9 +51,7 @@ public class Specialist extends HealthProfessional {
      */
     @Override
     public String toString() {
-        return "Specialist [ID: " + getId()
-                + ", Name: " + getName()
-                + ", Working Days: " + getWorkingDays()
+        return "Specialist [" + getBaseDetails()
                 + ", Specialisation: " + specialisation + "]";
     }
 }

@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * overrides, loops and conditions.
  *
  * GitHub repository: https://github.com/sandip001159852/OOP-A1-YangCao
- * (replace with your actual repository URL before submission)
+ * https://github.com/sandip001159852/OOP-A1-YangCao.git
  */
 public class AssignmentOne {
 
@@ -61,6 +61,8 @@ public class AssignmentOne {
         GeneralPractitioner gp3 = new GeneralPractitioner("1003", "Dr Carol Tan", monWedFri, 25);
         Specialist spec1 = new Specialist("2001", "Dr David Chen", tueThu, "Cardiology");
         Surgeon surgeon1 = new Surgeon("3001", "Dr Emma Zhao", allWeek, "Orthopaedics", 12);
+        Nurse nurse1 = new Nurse("4001", "Nurse Fiona Lim", monWedFri, true);
+        Dietitian dietitian1 = new Dietitian("5001", "Grace Koh", tueThu, "Diabetes management");
 
         // Store all of them in a single common-type collection (polymorphism).
         ArrayList<HealthProfessional> staff = new ArrayList<HealthProfessional>();
@@ -69,6 +71,8 @@ public class AssignmentOne {
         staff.add(gp3);
         staff.add(spec1);
         staff.add(surgeon1);
+        staff.add(nurse1);
+        staff.add(dietitian1);
 
         System.out.println("Clinic staff (" + staff.size() + " professionals):");
         for (HealthProfessional p : staff) {
@@ -149,6 +153,12 @@ public class AssignmentOne {
         System.out.println();
         System.out.println("--- Error case: illegal time slot (slot 16 = 16:30, after closing) ---");
         manager.addAppointment("Late Patient", "0477 000 777", spec1, 16);
+
+        // ---------- ERROR CASE: empty patient name and blank mobile ----------
+        System.out.println();
+        System.out.println("--- Error case: empty patient name and blank mobile (should print [FAIL]) ---");
+        manager.addAppointment("", "0411 000 111", gp1, 4);          // empty name
+        manager.addAppointment("Alice Smith", "   ", spec1, 4);      // blank mobile
 
         // ---------- NORMAL CASE: cancel by ID + time ----------
         System.out.println();

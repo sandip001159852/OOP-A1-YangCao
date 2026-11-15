@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * to take blood samples.
  *
  * GitHub repository: https://github.com/sandip001159852/OOP-A1-YangCao
- * (replace with your actual repository URL before submission)
+ * https://github.com/sandip001159852/OOP-A1-YangCao.git
  */
 public class Nurse extends HealthProfessional {
 
@@ -47,9 +47,7 @@ public class Nurse extends HealthProfessional {
      */
     @Override
     public String toString() {
-        return "Nurse [ID: " + getId()
-                + ", Name: " + getName()
-                + ", Working Days: " + getWorkingDays()
+        return "Nurse [" + getBaseDetails()
                 + ", Can Take Blood Samples: " + canTakeBloodSamples + "]";
     }
 }

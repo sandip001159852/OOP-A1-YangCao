@@ -18,7 +18,7 @@ import java.util.Collections;
  *  - always give clear feedback on success or failure
  *
  * GitHub repository: https://github.com/sandip001159852/OOP-A1-YangCao
- * (replace with your actual repository URL before submission)
+ * https://github.com/sandip001159852/OOP-A1-YangCao.git
  */
 public class AppointmentManager {
 
@@ -46,6 +46,29 @@ public class AppointmentManager {
      */
     public boolean addAppointment(String patientName, String patientMobile,
             HealthProfessional professional, int timeSlot) {
+        // Reject missing or blank patient details first, with the same [FAIL]
+        // feedback as every other failure path (no exception escapes).
+        if (patientName == null || patientName.trim().isEmpty()) {
+            System.out.println("[FAIL] Patient name is required - appointment not added.");
+            return false;
+        }
+        if (patientMobile == null || patientMobile.trim().isEmpty()) {
+            System.out.println("[FAIL] Patient mobile number is required - appointment not added.");
+            return false;
+        }
+        // Reject an illegal mobile format here (same rule as the Appointment
+        // constructor), so the failure is reported as [FAIL] instead of an
+        // uncaught IllegalArgumentException from the constructor.
+        if (!patientMobile.replace(" ", "").matches("\\d{10,12}")) {
+            System.out.println("[FAIL] Patient mobile number must be 10-12 digits "
+                    + "(spaces allowed) - appointment not added.");
+            return false;
+        }
+        // Reject a missing professional with the same [FAIL] convention.
+        if (professional == null) {
+            System.out.println("[FAIL] A health professional is required - appointment not added.");
+            return false;
+        }
         // Reject an illegal time slot first (defensive check).
         if (timeSlot < 0 || timeSlot >= Appointment.TOTAL_SLOTS) {
             System.out.println("[FAIL] Cannot book at slot " + timeSlot
@@ -100,6 +123,10 @@ public class AppointmentManager {
      * @return the filtered list (possibly empty)
      */
     public ArrayList<Appointment> filterById(String id) {
+        if (id == null || id.trim().isEmpty()) {
+            System.out.println("[WARN] Invalid professional ID - nothing to filter.");
+            return new ArrayList<Appointment>();
+        }
         ArrayList<Appointment> result = new ArrayList<Appointment>();
         for (Appointment a : appointments) {
             if (a.getProfessional().getId().equals(id)) {
@@ -117,6 +144,10 @@ public class AppointmentManager {
      * @return the filtered list (possibly empty)
      */
     public ArrayList<Appointment> filterByMobile(String mobile) {
+        if (mobile == null || mobile.trim().isEmpty()) {
+            System.out.println("[WARN] Invalid patient mobile - nothing to filter.");
+            return new ArrayList<Appointment>();
+        }
         ArrayList<Appointment> result = new ArrayList<Appointment>();
         for (Appointment a : appointments) {
             if (a.getPatientMobile().equals(mobile)) {

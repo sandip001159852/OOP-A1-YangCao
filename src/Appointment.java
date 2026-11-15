@@ -16,7 +16,7 @@
  * all present.
  *
  * GitHub repository: https://github.com/sandip001159852/OOP-A1-YangCao
- * (replace with your actual repository URL before submission)
+ * https://github.com/sandip001159852/OOP-A1-YangCao.git
  */
 public class Appointment implements Comparable<Appointment> {
 
@@ -53,11 +53,13 @@ public class Appointment implements Comparable<Appointment> {
      */
     public Appointment(String patientName, String patientMobile,
             HealthProfessional professional, int timeSlot) {
-        if (patientName == null || patientName.isEmpty()) {
+        if (patientName == null || patientName.trim().isEmpty()) {
             throw new IllegalArgumentException("Patient name is required.");
         }
-        if (patientMobile == null || patientMobile.isEmpty()) {
-            throw new IllegalArgumentException("Patient mobile number is required.");
+        if (patientMobile == null || patientMobile.trim().isEmpty()
+                || !patientMobile.replace(" ", "").matches("\\d{10,12}")) {
+            throw new IllegalArgumentException(
+                    "Patient mobile number must be 10-12 digits (spaces allowed).");
         }
         if (professional == null) {
             throw new IllegalArgumentException("A health professional is required.");
@@ -153,6 +155,6 @@ public class Appointment implements Comparable<Appointment> {
      */
     @Override
     public int compareTo(Appointment other) {
-        return this.timeSlot - other.timeSlot;
+        return Integer.compare(this.timeSlot, other.timeSlot);
     }
 }

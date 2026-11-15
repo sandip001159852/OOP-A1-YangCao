@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * adds its own attribute: the area of nutrition expertise.
  *
  * GitHub repository: https://github.com/sandip001159852/OOP-A1-YangCao
- * (replace with your actual repository URL before submission)
+ * https://github.com/sandip001159852/OOP-A1-YangCao.git
  */
 public class Dietitian extends HealthProfessional {
 
@@ -22,10 +22,14 @@ public class Dietitian extends HealthProfessional {
      * @param name           the full name
      * @param workingDays    the fixed working days
      * @param nutritionFocus the nutrition expertise area
+     * @throws IllegalArgumentException if nutritionFocus is blank
      */
     public Dietitian(String id, String name, ArrayList<String> workingDays,
             String nutritionFocus) {
         super(id, name, workingDays);   // initialise the inherited fields
+        if (nutritionFocus == null || nutritionFocus.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nutrition focus is required.");
+        }
         this.nutritionFocus = nutritionFocus;
     }
 
@@ -46,9 +50,7 @@ public class Dietitian extends HealthProfessional {
      */
     @Override
     public String toString() {
-        return "Dietitian [ID: " + getId()
-                + ", Name: " + getName()
-                + ", Working Days: " + getWorkingDays()
+        return "Dietitian [" + getBaseDetails()
                 + ", Nutrition Focus: " + nutritionFocus + "]";
     }
 }

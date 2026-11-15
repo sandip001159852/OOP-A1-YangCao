@@ -1,9 +1,20 @@
-# Java 编译产物
+# Compiled Java bytecode
 *.class
 
-# VS Code
+# Java archive files
+*.jar
+*.war
+
+# Log files
+*.log
+
+# IDE: VS Code
 .vscode/
 
-# IDE
+# IDE: IntelliJ IDEA
 .idea/
 *.iml
+
+# OS generated files
+.DS_Store
+Thumbs.db

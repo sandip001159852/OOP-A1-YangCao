@@ -18,9 +18,12 @@ import java.util.Objects;
  *    the internal collection.
  *
  * GitHub repository: https://github.com/sandip001159852/OOP-A1-YangCao
- * (replace with your actual repository URL before submission)
+ * https://github.com/sandip001159852/OOP-A1-YangCao.git
+ *
+ * Design decision: this class is abstract, so it cannot be instantiated as a
+ * plain "no-type" professional; subclasses must provide the concrete type.
  */
-public class HealthProfessional {
+public abstract class HealthProfessional {
 
     /** The unique identifier of the professional (digits only). */
     private String id;
@@ -32,13 +35,32 @@ public class HealthProfessional {
     private ArrayList<String> workingDays;
 
     /**
+     * Creates a health professional with default values: ID "000", name
+     * "Unknown" and one default working day (Monday).
+     */
+    public HealthProfessional() {
+        this("000", "Unknown", new ArrayList<String>(java.util.Arrays.asList("Monday")));
+    }
+
+    /**
      * Creates a health professional with the given details.
      *
      * @param id          the unique identifier (digits only)
      * @param name        the full name
-     * @param workingDays the fixed set of working days
+     * @param workingDays the fixed set of working days (must not be empty)
+     * @throws IllegalArgumentException if the ID is not digits only, the name
+     *         is blank, or the working-days list is null or empty
      */
     public HealthProfessional(String id, String name, ArrayList<String> workingDays) {
+        if (id == null || !id.matches("\\d+")) {
+            throw new IllegalArgumentException("ID must contain digits only.");
+        }
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Name is required.");
+        }
+        if (workingDays == null || workingDays.isEmpty()) {
+            throw new IllegalArgumentException("Working days must not be empty.");
+        }
         this.id = id;
         this.name = name;
         // Copy the list instead of keeping the caller's reference, so the
@@ -75,6 +97,17 @@ public class HealthProfessional {
     }
 
     /**
+     * Returns the common details prefix shared by all subclasses, so each
+     * subclass can build its own description without repeating the ID, name
+     * and working-days part.
+     *
+     * @return the common prefix, e.g. "ID: 1001, Name: Dr Lee, Working Days: [Monday, ...]"
+     */
+    protected String getBaseDetails() {
+        return "ID: " + id + ", Name: " + name + ", Working Days: " + workingDays;
+    }
+
+    /**
      * Returns a human-readable description containing all information about
      * this professional.
      *
@@ -82,8 +115,7 @@ public class HealthProfessional {
      */
     @Override
     public String toString() {
-        return "Health Professional [ID: " + id + ", Name: " + name
-                + ", Working Days: " + workingDays + "]";
+        return "Health Professional [" + getBaseDetails() + "]";
     }
 
     /**
